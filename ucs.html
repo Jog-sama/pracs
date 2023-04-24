@@ -1,0 +1,84 @@
+<html lang="" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>AI PRACS</title>
+</head>
+
+<body>
+
+    <pre>
+import heapq
+
+'''
+A 0
+B 1
+C 2
+D 3
+E 4
+F 5
+G 6
+H 7
+'''
+inf = 99
+
+graph = [
+    [inf, 1, 2, inf, inf, inf, inf, inf],
+    [inf, inf, inf, 7, 4, inf, inf, inf],
+    [inf, inf, inf, inf, inf, 7, 1, inf],
+    [inf, inf, inf, inf, inf, inf, inf, 3],
+    [inf, inf, inf, inf, inf, inf, inf, 2],
+    [inf, inf, inf, inf, inf, inf, inf, 5],
+    [inf, inf, inf, inf, inf, inf, inf, 12],
+    [inf, inf, inf, inf, inf, inf, inf, inf],
+]
+
+start = 0
+goal = 7
+open_list = []
+closed_list = []
+
+cost = {start:0}
+parent = {start: None}
+found = False
+
+heapq.heappush(open_list, (cost[start], start))
+
+def reconstruct_path(parent, current):
+    path = [current]
+
+    while current in parent.keys():
+        current = parent[current]
+        if current != None:
+            path.append(current)
+
+    return path
+
+while len(open_list) > 0:
+     q = heapq.heappop(open_list)[1]
+        
+     if q == goal:
+          path = reconstruct_path(parent, q)
+          path.reverse()
+          print(path)
+          print("Found")
+          break
+
+     for node, distance in enumerate(graph[q]):
+          if distance != inf:
+               temp_cost = cost[q] + distance
+
+               if node not in open_list and node not in closed_list:
+                    parent[node] = q
+                    cost[node] = temp_cost
+                    heapq.heappush(open_list, (temp_cost, node))
+               elif temp_cost < cost[node]:
+                    parent[node] = q
+                    cost[node] = temp_cost
+               
+     closed_list.append(q)
+
+    </pre>
+
+</body>
+</html>

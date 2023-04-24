@@ -1,0 +1,42 @@
+<html lang="" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>AI PRACS</title>
+</head>
+
+<body>
+
+    <pre>
+graph = {"A":["B","C"],
+"B":["D","E"],
+"C":["F","G"],
+"D":[],
+"E":[],
+"F":[],
+"G":[]}
+
+open_list = []
+closed_list =[]
+start = "A"
+goal = "F"
+
+def bfs(graph: dict, goal):
+    open_list.append(start)
+    while len(open_list) > 0:
+        current = open_list.pop(0)
+        print(current+" -> ", end=" ")
+        if current == goal:
+            print("found")
+            break
+        for neighbours in graph[current]:
+            if(neighbours not in closed_list):
+                open_list.append(neighbours)
+        closed_list.append(current)
+
+bfs(graph, goal)
+
+    </pre>
+
+</body>
+</html>
