@@ -1,0 +1,38 @@
+<html lang="" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>SPCC PRACS</title>
+</head>
+
+<body>
+
+    <pre>
+grammar = {
+    'E':['TA'],
+    'A':['+TA','e'],
+    'T':['FB'],
+    'B':['*FB','e'],
+    'F':['(E)','i','e'],
+}
+
+non_terminals = list(grammar.keys())
+
+def first(nt):
+    firsts = []
+    prods = grammar[nt]
+    for prod in prods:
+        if prod[0].islower() or not prod[0].isalnum():
+            firsts.append(prod[0])
+        elif prod[0] in non_terminals:
+            firsts.extend(first(prod[0]))
+        else:
+            break
+    return firsts
+
+for x in non_terminals:
+    print(f'{x}:{first(x)}')
+    </pre>
+
+</body>
+</html>
